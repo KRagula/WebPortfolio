@@ -63,19 +63,24 @@ Steps to Download
 
 Repo [here](https://github.com/KRagula/Programming-II-Portfolio/blob/master/EmpiricalFormulaSolver)
 
-### Tanker Truck Calculator
+### Morse Code Translator
 
-This program was my first attempt in the 2016-17 School Year at creating a standalone application using Java Swing.  This program was the testing
-This program takes the estimated lifetime, amount of water drunk per day, and name of a user to return how many 11,000 gallon tanker trucks of water the user will drink in their lifetime.  
+This program was created to translate 6 pages of text written by a fellow student in Morse Code.  As he filled it with symbols with no Morse Code Translations, I had to account for this in the program.  
+The program takes in text given by the user in either English or Morse Code and translates it to the other language.  A "Return" button allows switching between the functions without restarting the App.  
 
-![alt text](https://kragula.github.io/Programming-II-Portfolio/TankerTruckGUI/Screenshots/TankerCalc.png)
-![alt text](https://kragula.github.io/Programming-II-Portfolio/TankerTruckGUI/Screenshots/ResultsTanker.png)
-
+![alt text](https://github.com/KRagula/WebPortfolio/blob/master/MorseTranslator/Screenshots/Entry.png)
+<br/><br/>
+![alt text](https://github.com/KRagula/WebPortfolio/blob/master/MorseTranslator/Screenshots/English.png)
+<br/><br/>
+![alt text](https://github.com/KRagula/WebPortfolio/blob/master/MorseTranslator/Screenshots/Morse.png)
+<br/><br/>
+![alt text](https://github.com/KRagula/WebPortfolio/blob/master/MorseTranslator/Screenshots/Translate.png)
 Steps to Run
-1. [Download File Here](https://github.com/KRagula/Programming-II-Portfolio/blob/master/TankerTruckGUI/TankerTruck.jar)
+
+1. [Download File Here](https://github.com/KRagula/WebPortfolio/blob/master/MorseTranslator/MorseTranslator.jar)
 2. Run jar
 
-Repo [here](https://github.com/KRagula/Programming-II-Portfolio/blob/master/TankerTruckGUI)
+Repo [here](https://github.com/KRagula/WebPortfolio/blob/master/MorseTranslator)
 
 ### World Population
 
