@@ -12,16 +12,20 @@
  * 
  * 
  */
-import java.awt.Dimension;
 import java.awt.GridLayout;
-import java.awt.TextArea;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Scanner;
-import javax.swing.*;
+import javax.swing.JButton;
+import javax.swing.JComboBox;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JPanel;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
 
 public class MorseMain {
+	
+	//Declare variables
 	JFrame mainFrame, chooseFrame;
 	JPanel textEntry, controlPanel;
 	JTextField textBox;
@@ -51,67 +55,92 @@ public class MorseMain {
 	 * Morse to English 
 	 */
 	public void setupEntry() {
+		
+		//Set up JFrame
 		chooseFrame = new JFrame("Welcome to Morse Translator");
 		chooseFrame.setLayout(new GridLayout(3,1));
 		chooseFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		chooseFrame.setSize(400, 200);
 		
+		//Create items to add to JFrame
 		JLabel welcome = new JLabel("Please choose to translate To or From Morse Code");
 		String[] options = {"Morse To English","English to Morse"};
-		final JComboBox jc = new JComboBox(options);
+		final JComboBox<String> jc = new JComboBox<String>(options);
 		jc.setSelectedIndex(1);
 		JButton next = new JButton("Next");
 		next.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
 				int index = jc.getSelectedIndex();
+				//Either choose Morse or English translator
 				if(index == 0) {
-					setupMorToEng();
+					setupEngToMor(false);
 				} else {
-					setupEngToMor();
+					setupEngToMor(true);
 				}
 				chooseFrame.dispose();
 			}
 		});
+		
+		//Add everything to JFrame
 		chooseFrame.add(welcome);
 		chooseFrame.add(jc);
 		chooseFrame.add(next);
 		chooseFrame.setVisible(true);
 	}
 	
-	/** Creates window for translating English to Morse.  JTextArea used to take input
+	/** Creates window for translating Text.  JTextArea used to take input
 	 * and return output.  Button can be pressed to return to option switch.
-	 * 
+	 *  @param Boolean value to determine if going to Morse code or going to English
+	 *  	true = Morse-> English
+	 *  	false = English -> Morse
 	 */
-	public void setupEngToMor() {
+	public void setupEngToMor(final boolean toMor) {
+		
+		//Set up JFrame
 		mainFrame = new JFrame("Morse Code Translator");
 		mainFrame.setSize(400,500);
 		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		mainFrame.setLayout(new GridLayout(2,1));
 		
-		JLabel returnHelp = new JLabel("Return Morse Code");
-		JLabel entryHelp = new JLabel("Enter English");
+		//JLabels to add to Frame
+		if(toMor) {
+			returnHelp = new JLabel("Return Morse Code");
+			entryHelp = new JLabel("Enter English");
+		} else {
+			returnHelp = new JLabel("Return English");
+			entryHelp = new JLabel("Enter Morse Code");
+		}
 		
+		//Set up the panels and TextAreas and add labels
 		controlPanel = new JPanel();
 		returnText = new JTextArea(10,34);
 		returnText.setLineWrap(true);
 		returnText.setEditable(false);
 		controlPanel.add(returnHelp);
 		controlPanel.add(returnText);
-		
 		textEntry = new JPanel();
 		entryText = new JTextArea(8,34);
 		
+		//Button to translate
 		JButton translate = new JButton("Translate");
 		translate.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				entryText.selectAll();
-				returnText.append(translateEng(entryText.getSelectedText()));
-				returnText.selectAll();
-				returnText.setCaretPosition(returnText.getSelectedText().length());
+				if(toMor) {
+					entryText.selectAll();
+					returnText.append(translateEng(entryText.getSelectedText()));
+					returnText.selectAll();
+					returnText.setCaretPosition(returnText.getSelectedText().length());
+				} else {
+					entryText.selectAll();
+					returnText.append(breakString(entryText.getSelectedText()));
+					returnText.selectAll();
+					returnText.setCaretPosition(returnText.getSelectedText().length());
+				}
 			}
 			
 		});
 		
+		//Button to go back to selector
 		JButton returnHome = new JButton("Switch Function");
 		returnHome.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent ae) {
@@ -120,72 +149,18 @@ public class MorseMain {
 			}
 		});
 		
+		//Add last items to panels
 		textEntry.add(entryHelp);
 		textEntry.add(entryText);
 		textEntry.add(translate);
-		
 		controlPanel.add(returnHome);
-
 		
+		//Add panels to frame
 		mainFrame.add(textEntry);
 		mainFrame.add(controlPanel);
 		mainFrame.setVisible(true);
 	}
 	
-	/** Creates window for translating Morse to English.  JTextArea used to take input
-	 * and return output.  Button can be pressed to return to option switch.
-	 * 
-	 */
-	public void setupMorToEng() {
-		mainFrame = new JFrame("Morse Code Translator");
-		mainFrame.setSize(400,500);
-		mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		mainFrame.setLayout(new GridLayout(2,1));
-		
-		JLabel returnHelp = new JLabel("Return English");
-		JLabel entryHelp = new JLabel("Enter Morse");
-		
-		controlPanel = new JPanel();
-		returnText = new JTextArea(10,34);
-		returnText.setLineWrap(true);
-		returnText.setEditable(false);
-		controlPanel.add(returnHelp);
-		controlPanel.add(returnText);
-		
-		textEntry = new JPanel();
-		entryText = new JTextArea(8,34);
-		//textBox = new JTextField(34);
-		JButton translate = new JButton("Translate");
-		translate.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-				entryText.selectAll();
-				returnText.append(breakString(entryText.getSelectedText()));
-				returnText.selectAll();
-				returnText.setCaretPosition(returnText.getSelectedText().length());
-			}
-			
-		});
-		
-		JButton returnHome = new JButton("Switch Function");
-		returnHome.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent ae) {
-				mainFrame.dispose();
-				setupEntry();
-			}
-		});
-		
-		controlPanel.add(returnHome);
-		
-		textEntry.add(entryHelp);
-		textEntry.add(entryText);
-		textEntry.add(translate);
-		
-
-		
-		mainFrame.add(textEntry);
-		mainFrame.add(controlPanel);
-		mainFrame.setVisible(true);
-	}
 	
 	/**Method to take Morse input and break into individual letters.
 	 * Uses getNormalVal to get English character.
@@ -211,6 +186,8 @@ public class MorseMain {
 	 * @return Morse Translation
 	 */
 	private String translateEng (String toBreak) {
+		
+		//Remove the Whitespace
 		String newText = toBreak;
 		String newText2 = newText.toLowerCase();
 		newText2 = newText2.replaceAll("\\s", "");
