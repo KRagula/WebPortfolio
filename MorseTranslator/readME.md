@@ -6,5 +6,7 @@ The program takes in text given by the user in either English or Morse Code and 
 ![alt text](https://github.com/KRagula/WebPortfolio/blob/master/MorseTranslator/Screenshots/Entry.png)
 <br/><br/>
 ![alt text](https://github.com/KRagula/WebPortfolio/blob/master/MorseTranslator/Screenshots/English.png)
+<br/><br/>
 ![alt text](https://github.com/KRagula/WebPortfolio/blob/master/MorseTranslator/Screenshots/Morse.png)
+<br/><br/>
 ![alt text](https://github.com/KRagula/WebPortfolio/blob/master/MorseTranslator/Screenshots/Translate.png)
