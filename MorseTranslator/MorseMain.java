@@ -7,8 +7,8 @@
  * Relies on MorseRepo Enum.
  * 
  * @author Kanishka Ragula
- * @version 1.0.2
- * @since 12/09/2017
+ * @version 1.2.0
+ * @since 09/13/2017
  * 
  * 
  */
