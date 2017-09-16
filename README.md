@@ -54,7 +54,9 @@ The option to see the steps taken to get to the final result is available after 
 
 ![alt text](https://kragula.github.io/Programming-II-Portfolio/EmpiricalFormulaSolver/Screenshots/InstructionsCalc.png)
 
-This will be displayed using Swing.  All numbers will be estimates to the best the program can do.
+All numbers are estimates to the best the program can do.
+
+[Demo Here](https://youtu.be/XKbyuNbmZZk)
 
 Steps to Download
 1. [Download File Here](https://github.com/KRagula/Programming-II-Portfolio/blob/master/EmpiricalFormulaSolver/EmpirFormulaSolver.zip)
