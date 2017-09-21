@@ -70,13 +70,14 @@ Repo [here](https://github.com/KRagula/Programming-II-Portfolio/blob/master/Empi
 This program was created to translate 6 pages of text written by a fellow student in Morse Code.  As he filled it with symbols with no Morse Code Translations, I had to account for this in the program.  
 The program takes in text given by the user in either English or Morse Code and translates it to the other language.  A "Return" button allows switching between the functions without restarting the App.  
 
-![alt text](https://github.com/KRagula/WebPortfolio/blob/master/MorseTranslator/Screenshots/Entry.png)
+![alt text](https://github.com/KRagula/WebPortfolio/blob/master/MorseTranslator/Screenshots/Entry.png "Entry Screen")
 <br><br/>
-![alt text](https://github.com/KRagula/WebPortfolio/blob/master/MorseTranslator/Screenshots/English.png)
+![alt text](https://github.com/KRagula/WebPortfolio/blob/master/MorseTranslator/Screenshots/English.png "English Tranlsator")
 <br><br/>
-![alt text](https://github.com/KRagula/WebPortfolio/blob/master/MorseTranslator/Screenshots/Morse.png)
+![alt text](https://github.com/KRagula/WebPortfolio/blob/master/MorseTranslator/Screenshots/Morse.png "Morse Translator")
 <br><br/>
-![alt text](https://github.com/KRagula/WebPortfolio/blob/master/MorseTranslator/Screenshots/Translate.png)
+![alt text](https://github.com/KRagula/WebPortfolio/blob/master/MorseTranslator/Screenshots/Translate.png "Translation")
+<br><br/>
 Steps to Run
 
 1. [Download File Here](https://github.com/KRagula/WebPortfolio/blob/master/MorseTranslator/MorseTranslator.jar)
