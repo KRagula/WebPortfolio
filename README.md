@@ -71,11 +71,11 @@ This program was created to translate 6 pages of text written by a fellow studen
 The program takes in text given by the user in either English or Morse Code and translates it to the other language.  A "Return" button allows switching between the functions without restarting the App.  
 
 ![alt text](https://github.com/KRagula/WebPortfolio/blob/master/MorseTranslator/Screenshots/Entry.png)
-<br/><br/>
+<br><br/>
 ![alt text](https://github.com/KRagula/WebPortfolio/blob/master/MorseTranslator/Screenshots/English.png)
-<br/><br/>
+<br><br/>
 ![alt text](https://github.com/KRagula/WebPortfolio/blob/master/MorseTranslator/Screenshots/Morse.png)
-<br/><br/>
+<br><br/>
 ![alt text](https://github.com/KRagula/WebPortfolio/blob/master/MorseTranslator/Screenshots/Translate.png)
 Steps to Run
 
