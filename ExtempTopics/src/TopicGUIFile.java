@@ -1,3 +1,14 @@
+/**<h1>Topic Chooser for Extemporaneous Speaking</h1>
+ * 
+ * Randomly selects a topic to speak on from a list of questions.  Questions are unique until every question in the list has been exhausted.
+ * 
+ * @author Kanishka Ragula
+ * @version 1.5.0
+ * @since 11/06/2017
+ * 
+ */
+
+
 import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.event.ActionEvent;

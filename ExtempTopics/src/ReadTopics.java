@@ -1,3 +1,12 @@
+/**<h1>File Reader for Extemp program</h1>
+ * 
+ * Reads a list of topics in a text file and returns three random unique questions.
+ * 
+ * @author Kanishka Ragula
+ * @version 1.2.0
+ * @since 11/06/2017
+ * 
+ */
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
