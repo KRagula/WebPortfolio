@@ -1,8 +1,11 @@
 * TOC
 {:toc}
 
-[Website](https://github.com/KRagula/WebPortfolio/tree/gh-pages/index.html)
-
+<html>
+    <body>
+        <a href="index.html">Website</a>
+    </body>
+</html>
 # Programming II Portfolio
 
 ## Projects
