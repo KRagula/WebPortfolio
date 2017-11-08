@@ -1,7 +1,7 @@
 * TOC
 {:toc}
 
-[Download File Here](https://github.com/KRagula/WebPortfolio/raw/gh-pages/index.html)
+[Website](https://github.com/KRagula/WebPortfolio/tree/gh-pages/index.html)
 
 # Programming II Portfolio
 
