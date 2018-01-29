@@ -1,0 +1,102 @@
+---
+title: "MATH 3070 Lab Project 3"
+author: "Kanishka Ragula"
+date: "September 1, 2016"
+output:
+  html_document:
+    toc: TRUE
+---
+
+*Remember: I expect to see commentary either in the text, in the code with comments created using `#`, or (preferably) both! **Failing to do so may result in lost points!***
+
+## Problem 1
+*The `faithful` (Package **datasets** is built in Base R) dataset records the waiting time between eruptions and the duration of the eruption for the Old Faithful geyser in Yellowstone National Park. Find the mean waiting time, median waiting time, longest waiting time and shortest waiting time in minutes.*
+
+```{r}
+library(UsingR)
+#Prints mean
+mean(faithful$waiting)
+#Prints median
+median(faithful$waiting)
+#Prints max
+max(faithful$waiting)
+#Prints min
+min(faithful$waiting)
+```
+
+## Problem 2 (Verzani problem 2.34)
+*The data set `DDT` (**MASS**) contains independent measurements of the pesticide DDT on kale. Make a histogram and a boxplot of the data. From these, estimate the mean and standard deviation. Check your answers with the appropriate functions.*
+
+```{r}
+#Creates a Histogram of DDT
+hist(DDT)
+
+#Creates a Boxplot for DDT
+boxplot(DDT)
+
+#Calculates mean of DDT
+mean(DDT)
+
+#Calculates standard Deviation of DDT
+sd(DDT)
+```
+
+## Problem 3 (Verzani problem 2.32 modified)
+*Write a function 'density_compare()' that fits a density estimate to a given data set and plots that estimate along with the appropriate histogram of the given data set. Try your function with the data set `pi2000` (**UsingR**). Why might you want to add an argument like `breaks = 0:10-.5` to `hist()`? (Hint: read the documentation of `hist()` to see what setting this argument does). Feel free to add other parameters to your plot methods to see how they can be changed.*
+
+```{r}
+#Declare function and parameters
+density_compare = function(x){
+  
+  #Create the Histogram of x
+  hist(x, 
+       main = "Distribution of Desired Dataset",
+       #Color Gray
+       col = "gray",
+       #Turn off frequency so it fits on density
+       freq = FALSE,
+       
+       #Break makes it so the breaks show every number, not just the groups of two.
+       breaks = 0:10 - .5)
+  #Plots density curve
+  lines(density(x))
+}
+density_compare(pi2000)
+```
+
+## BONUS (Verzani problem 2.25)
+*Write a function `isprime()` that checks if a number $x$ is prime by dividing $x$ by all the values in $2, ..., x - 1$ then checking to see if there is a remainder of 0. The expression `a %% b` returns the remainder of `a` divided by `b`.*
+
+```{r}
+# Method and parameters 
+isprime = function(x){
+  #Set first value to be divided by for test
+  varInc = 2
+  #Variabe that stores whether or not a prime
+  #Defaults to true
+  priminess = TRUE;
+  #While loop which increments varInc until varInc = x-1
+  while((varInc < x) && priminess){
+    #Calculate Remainder
+    remainder = x%%varInc
+    if(remainder == 0){
+      #If remainder is zero, it isn't prime and sets isPrime to false
+      priminess = FALSE;
+    }
+    #Increment
+    varInc = varInc + 1
+  }
+  #Print results
+  print(priminess)
+}
+#Test with arbritary values
+isprime(5)
+isprime(6)
+isprime(100000)
+```
+
+*You do not need to check all numbers from 2 to $x - 1$ to see if a number is prime. What is the largest you would need to go for an arbitrary $x$? Create a new function, `isprime2()`, that implements this better (yet still slow) method.*
+
+```{r}
+# Already done up there, the while loop exits if the value is found to be not prime.
+```

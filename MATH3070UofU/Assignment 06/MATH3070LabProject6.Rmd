@@ -1,0 +1,57 @@
+---
+title: "MATH 3070 Lab Project 6"
+author: "Your Name"
+date: "September 22, 2016"
+output:
+  html_document:
+    toc: TRUE
+---
+
+*Remember: I expect to see commentary either in the text, in the code with comments created using `#`, or (preferably) both! **Failing to do so may result in lost points!***
+
+## Problem 1 (Verzani problem 5.1)
+*For the `UScereal` (**MASS**) data set, create a scatter plot of `calories` modeled by `sugars` using the `shelf` variable to create different plot characters. Add a legend to indicate the shelf number. Is there any patterns? (Use base R plotting for this problem.)*
+
+```{r, tidy=TRUE, error=TRUE}
+library(MASS)
+plot(UScereal$calories, UScereal$sugars, #Create a plot with the calories and sugars
+     col = as.numeric(UScereal$shelf), #Color is by the shelf
+     pch = as.numeric(UScereal$shelf), #Characters by shelf as well
+     xlab = "Calories", #Label the axes and the main
+     ylab = "Sugars",
+     main = "Sugars and Calories of US Cereal Brands",
+     
+     )
+legend(300,10,c("Shelf 1", "Shelf 2", "Shelf 3"), col = 1:3, pch = 1:3)
+#Create a legend
+#It would appear as though the unhealthier cereals tend to be on the higher shelves and the healthier cereals are on the lower shelves.  However, there are outliers as usual but...IDK.  Unhealthy is on the top to sell more and cause more diabetes?
+```
+
+## Problem 2 (Verzani problem 5.3)
+*For the data set `UScereal` (**MASS**) make a pairs plot of the numeric variables. Which correlation looks larger: fat and calories or fat and sugars?*
+
+```{r, tidy=TRUE, error=TRUE}
+library(MASS)
+
+pairs(UScereal[sapply(UScereal, is.numeric)], col = UScereal$shelf)
+#Makes a subset of the values of UScereal that are numeric and then plots those.
+#From the looks of it, fat and calories have a greater correlation.
+
+```
+
+## Problem 3 (Verzani problem 5.4)
+*For the data set `batting` (**UsingR**) make a bubble plot of home runs hit (`HR`) modeled by hits (`H`) where the scale factor for each point is given by `sqrt(SO)/10`. Is there any story to be told by the size of the points? (You must use base R plotting for this problem.)*
+
+```{r, tidy=TRUE, error=TRUE}
+library(UsingR)
+plot( HR ~ H, data = batting, #Create the two data variables
+      pch = 16, #Make the circles as the default data type
+      col = rgb(red=0,green=0,blue=0, alpha=.250) , #Set color to a depressing gray
+      cex = sqrt(SO/5), #Follow the instructions about what to set the scale factor to
+      xlab = "Hits", #Label the axes and give a title
+      ylab = "Home Runs",
+      main = "Home Runs, Hits, and Strikeouts"
+      )
+#There is a positive correlation between the number of hits and the number of home runs.  The story to be told by the points is the more people hit the ball, the less likely they were to strike out.  There would appear to be a negative correlation between number of hits and the circle area.  It seems this way logically because the more you hit, the less you strike out (unless you keep fouling, in which case, that's your fault)
+```
+

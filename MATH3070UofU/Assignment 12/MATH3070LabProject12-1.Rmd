@@ -1,0 +1,60 @@
+---
+title: "MATH 3070 Lab Project 12"
+author: "Kanishka Ragula"
+date: "`r format(Sys.time(), '%d %B, %Y')`"
+output:
+  html_document:
+    toc: TRUE
+---
+
+*Remember: I expect to see commentary either in the text, in the code with comments created using `#`, or (preferably) both! **Failing to do so may result in lost points!***
+
+## Problem 1 (Verzani problem 8.7)
+*Of the last ten times you've dropped your toast, it landed sticky-side down nine times. If these are a random sample from the $\text{Ber}(p)$ distribution, find an 80% confidence interval for $p$, the probability of the stidy side landing down. (Use `binconf()` (**Hmisc**) to compute the score interval.)*
+
+```{r, tidy = TRUE}
+library(Hmisc)
+binconf(8,10,alpha=.2)
+#80% Confidence Interval of landing sticky side down
+```
+
+## Problem 2 (Verzani problem 8.10)
+*A survey is taken of 250 students, and a $\hat{p}$ of 0.45 is found. The same survey is repeated with 1000 students, and the same $\hat{p}$ is found. Compare the two 95% confidence intervals. What is the relationship? Is the margin of error for the second one four times smaller? If not, how much smaller is it? (Use `binom.test()` to answer this problem.)*
+
+```{r, tidy = TRUE}
+binconf(.45*250, 250, alpha = .05) #Calculate the intervals using binconf
+binconf(.45*1000, 1000, alpha=.05)
+#The moe of the second one is only half as small because it is divided by the root of n so 4 becomes 2.
+binom.test(112, 250) #Using binom.test() as per the problem's requests
+binom.test(450,1000)
+```
+
+## Problem 3 (Verzani problem 8.15)
+*The `stud.recs` (**UsingR**) data set contains a sample of math SAT scores from some population in the variable `sat.m`. Find a 90% confidence interval for the mean math SAT score for this data. (Do not use `t.test(); find this confidence interval "by hand".)*
+
+```{r, tidy = TRUE}
+library(UsingR)
+zstar = qnorm(.05, lower.tail=FALSE) #Calculate the z value for .05
+sigma = sd(stud.recs$sat.m) # Calculate the standard deviation
+moe = zstar*sigma/sqrt(length(stud.recs$sat.m)) #By hand moe
+meanMath = mean(stud.recs$sat.m) # Calculate the mean
+ci=c(Lower = meanMath-moe, Upper = meanMath+moe) #Create a vector
+ci #Print it out
+
+
+```
+
+## Problem 4 (Verzani problem 8.15)
+*For the `homedata` (**UsingR**) data set find 90% confidence intervals for both variables `y1970` and `y2000`, assuming the sample represents some population. Perform one sample t-test for each variable, use `t.test()`, but first discuss whether the model assumptions are appropriate (include some check of the assumptions, like a Q-Q plot).*
+
+```{r, tidy = TRUE}
+qqnorm(homedata$y1970) #QQ Plot for the 1970 data
+qqline(homedata$y1970)
+qqnorm(homedata$y2000) #QQ Plot for the 2000 data
+qqline(homedata$y2000)
+
+#It would appear 1970 can have the model assumptions apply more easily than 2000 because the data seems more linear on the qq-plot, so more normal.  However, the 1970 data is a bit more positively skewed than the normal and the 2000 data is more right skewed.  While neither is perfect, this should be fine.
+
+t.test(homedata$y1970, conf.level = .9)
+t.test(homedata$y2000, conf.level = .9)
+```

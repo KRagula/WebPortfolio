@@ -1,0 +1,53 @@
+---
+title: "MATH 3070 Lab Project 1"
+author: "Kanishka Ragula"
+date: "August 24, 2017"
+output:
+  html_document:
+    toc: TRUE
+---
+
+*Remember: I expect to see commentary either in the text, in the code with comments created using `#`, or (preferably) both! **Failing to do so may result in lost points!***
+
+## Problem 1 (Verzani problem 1.1)
+*Use R as you would a calculator to find numeric answers to the following:*
+
+1. $1 + 2(3 + 4)$
+
+```{r}
+# Order of operations done.  The multiplication separates
+# the parenthesis from the coefficient because it throws
+# an error otherwise.
+1 + 2 * (3+4)
+```
+
+2. $4^3 + 3^{2 + 1}$
+
+```{r}
+# Parenthesis are around the exponents
+(4^3) + 3^(2+1)
+```
+
+## Problem 2 (Verzani problem 1.4)
+*Use R to compute the following:*
+
+$$\frac{0.25 - 0.2}{\sqrt{0.2(1-0.2)/100}}$$
+
+```{r}
+# Equation here
+(.25-.2)/(sqrt(.2*(1-.2)/100))
+```
+
+## Problem 3 (Verzani problem 1.5)
+*Assign the numbers 2 through 5 to different variables, then use the variables to multiply all the values.*
+
+```{r}
+# Assigning values to the variables
+num_var2 = 2
+num_var3 = 3
+num_var4 = 4
+num_var5 = 5
+# Multiply all together
+num_var2 * num_var3 * num_var4 * num_var5
+```
+

@@ -1,0 +1,91 @@
+---
+title: "MATH 3070 Lab Project 7"
+author: "Kanishka Ragula"
+date: "September 29, 2016"
+output:
+  html_document:
+    toc: TRUE
+---
+
+*Remember: I expect to see commentary either in the text, in the code with comments created using `#`, or (preferably) both! **Failing to do so may result in lost points!***
+
+## Problem 1 (Verzani problem 5.6)
+*For the `batting` (**UsingR**) data set, make parallel boxplots of the batting average (`H/AB`) for each team. Which team had the greatest median average? (Use **lattice** functions for this problem.)*
+
+```{r, tidy=TRUE, error=TRUE}
+library(UsingR)
+library(lattice)
+#Import libraries
+attach(batting)
+#attach batting to program
+BA = H/AB
+#Create new vector for batting
+newbatting = cbind(batting, BA)
+#Create new dataset
+bwplot(teamID ~ BA, data = newbatting, main = "Batting Averages of MLB Teams")
+#Create the boxplot
+#ANA has the greatest median average
+```
+
+## Problem 2 (Verzani problem 5.7)
+*For the `mtcars` data set, produce graphics of the following using **ggplot2**:*
+
+1. *Boxplots for miles per gallon (`mpg`) for groups defined by the number of gears (`gear`).*
+
+```{r, tidy=TRUE, error=TRUE}
+library(ggplot2)
+mpggear = ggplot(mtcars, aes (group = gear, y=mpg, x=gear, color = gear)) + #Break by gear
+  xlab("MPG") +  #Label X
+  ylab("Species") + #Label Y
+  ggtitle("MPG v Species") + #Title
+  geom_boxplot() #make a boxplot
+mpggear
+# Plot the boxplot with data mtcars and title
+```
+
+2. *A scatterplot of `mpg` modeled by horsepower (`hp`). Create facets by the number of cylinders (`cyl`) and `gear`.*
+
+```{r, tidy=TRUE, error=TRUE}
+
+mpghp = ggplot(mtcars, aes(x = hp, y= mpg)) + #Set up general ggplot
+  geom_point() + #Scatterplot
+  facet_grid(cyl~gear) + #Make a grid by cylinder and gear
+  ggtitle("HP to MPG broken by gears (x) and cylinders (y)") #add title
+mpghp #display
+```
+
+## Problem 3
+*Using the `batting` data set (UsingR), create a visualization that does the following:*
+
+* *Plots the* rate *of intentional walks (that is, the number of intentional walks divided by the number of times a player was at bat; these are the `IBB` and `AB` variables in the data set, respectively) against the* rate *of home runs (the `HR` variable in the data set) as a scatterplot*
+
+* *Draws a trend line for these variables*
+
+* *Identifies and labels the outlier in the data set in these variables (easily spotted once the scatter plot is drawn)*
+
+*(Hint: `geom`-type functions can accept data arguments and will use the data set passed rather than the default for the chart. So for the third requirement, consider adding a text layer with `geom_text(data = ..., aes(...))` where the argument passed to `data` is a subset of the data set consisting of the outlier, and `aes(...)` defines how to label that outlier.)*
+
+```{r, tidy = TRUE, error=TRUE}
+BatWalk = IBB/AB #Create a new data vector
+new2Batting = cbind(batting, BatWalk) # make a new dataset
+graph = ggplot(new2Batting, aes(x=HR, y = BatWalk)) + #Graph
+  geom_point()+ #Make Scatterplot
+  stat_smooth() + #Trendline
+  geom_text(data = subset(new2Batting, BatWalk>.15 | HR>60), aes(HR, BatWalk-.005, label=playerID)) #Label Mr. Bonds
+graph #Display
+```
+
+## BONUS Problem
+*Reconsider the data set from a previous project containing data about the results of 2012 Olympics. I load the data in for you below:*
+
+```{r}
+olympic2012 <- read.csv("http://introcs.cs.princeton.edu/java/data/olympic-medals2012.csv")
+# Some variables are read in as strings when, in truth, they are numeric (they separate thousands with commas, leading to them being read as strings). I fix this below using the transform function, which allows for modifying columns in a data frame using methods similar to with.
+olympic2012 <- transform(olympic2012, GDP.2011 = as.numeric(gsub(",", "", GDP.2011)), pop.2010 = as.numeric(gsub(",", "", pop.2010)))
+```
+
+*Use any plotting system (base R, **lattice**, **ggplot2**) to create plot involving at least three variables in the `olympic2012` data set. Explain the relationship you explored and any interesting findings. **Bonus points will be given for plots that I consider exceptionally clean, clear, and insightful, accompanied with good analyses of what you found.***
+
+```{r, tidy=TRUE, error=TRUE}
+# Your code here
+```

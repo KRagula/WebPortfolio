@@ -1,0 +1,105 @@
+---
+title: "MATH 3070 Lab Project 11"
+author: "Kanishka Ragula"
+date: "November 9, 2017"
+output:
+  html_document:
+    toc: TRUE
+---
+
+*Remember: I expect to see commentary either in the text, in the code with comments created using `#`, or (preferably) both! **Failing to do so may result in lost points!***
+
+*Because randomization is used in this assignment, I set the seed here, in addition to beginning each code block. **Do not change the seed!***
+
+```{r}
+set.seed(6222016)
+
+```
+
+## Problem 1 (Verzani problem 7.1)
+*Simulate 1000 rolls of a pair of dice, and compute the sum of each pair. Which is more common, a roll of 7 or 8?*
+
+```{r, echo=FALSE}
+# Seed reset; DO NOT CHANGE THE SEED!
+set.seed(6222016) #Set seed
+```
+
+```{r, tidy=TRUE}
+# install.packages("UsingR")
+library(UsingR) #UsingR
+library(plyr) #For the count method
+a = 0 #Create an empty list
+for( i in 1:1000){ #FOR LOOPS.  FIGHT ME
+  a[i] = sample(6,1, replace=TRUE) + sample(6,1, replace=TRUE) #Create a sum of two dice and store in the vaue
+}
+table(a) #Creates a frequency table
+
+set.seed(6222016) #Set seed
+table(replicate(1000, sample(6,1,replace=TRUE)+sample(6,1,replace=TRUE)))
+#^if you want to be boring
+#A roll of 7 is the most common.
+```
+
+## Problem 2 (Verzani problem 7.2)
+*For the `rivers` data set, take 1000 random samples of size 10. Compare the mean of the sample means computed from these samples, with the sample mean of the data in `rivers`.*
+
+```{r, echo=FALSE}
+# Seed reset; DO NOT CHANGE THE SEED!
+set.seed(6222016)
+```
+
+```{r, tidy=TRUE}
+# Your code here
+b = 0 #Create an empty list
+for( i in 1:1000){ #These for loops must be getting on your nerves
+  b[i] = mean(sample(rivers, 10, replace=TRUE)) #Create 1000 sample means from random samples of size 10
+}
+mean(b) #The mean of the sample means
+
+set.seed(6222016) #Set seed
+mean(replicate(1000, sample(rivers, 10, replace=TRUE)))
+#^again, the boring method
+
+
+mean(rivers) #The mean of rivers
+#They are within 5 units from each other.  
+```
+
+## Problem 3
+*The data set `Melanoma` (**MASS**) includes data for 205 Danish patients with malignant melanoma. The variable `time` describes survival time in days, and `sex` describes the sex of the patient. Does survival time differ between the sexes?*
+
+1. *Find $\bar{x}_{\text{men}} - \bar{x}_{\text{women}}$, the mean difference in survival time (`time`) between men and women (`sex`) in `Melanoma`.*
+
+```{r, tidy = TRUE}
+# Your code here
+menMean = mean(subset(Melanoma, sex ==0)$time) #Mean time for men
+womenMean = mean(subset(Melanoma, sex==1)$time) #Mean time for women
+diff = menMean-womenMean
+diff
+#It would appear that men live for almost a year longer than women
+```
+
+2. *Investigate whether the difference you observed in part 1 is significant, using procedures explored in the lecture. There are two groups in this investigation: male (`Melanoma$sex == 0`) and female (`Melanoma$sex == 1`). Randomly reassign the data in the `time` variable to the two groups, and compute the mean difference. Repeat 2000 times (this needs to be done relatively quickly; if it takes over a few minutes, I will dock points), and determine how frequently the difference in the mean survival time between men and women (that is, $\bar{x}_{\text{men}} - \bar{x}_{\text{women}}$ in the simulated data is less than the same difference observed in the actual data. Does this analysis suggest the difference is due to "noise", or due to an actual difference in survival time between men and women?*
+
+```{r, echo=FALSE}
+# Seed reset; DO NOT CHANGE THE SEED!
+set.seed(6222016)
+```
+
+```{r, tidy=TRUE}
+# Well, sadly I can't use for loops this time :(
+
+length(subset(Melanoma, sex==0)$time)
+#This tells me there are 126 men in the sample size, so to reassign the data, I'll just take 126 random samples from the time without replacement.  
+time = Melanoma$time #Vectorize the time so it can be used
+d=0 #Array for a you-know-what
+for(i in 1:2000){ #THE FOR-LOOP STRIKES BACK 
+  reassigned = sample(time, size=205, replace=FALSE) #Randomly create a vector of times
+  d[i]=mean(head(reassigned,126))-mean(tail(reassigned,79)) #Populate the array with the differences
+} 
+vectorizedRand=c(d) #Vectorize the array
+gr8terThan = (vectorizedRand<diff) #Create an array of simulated being  less than the difference
+sum(gr8terThan, na.rm=TRUE)
+#The length is returned
+#Since the difference is  greater than the random differences 95% of the time, this is significant and there is a significant discrepancy between the lifetime of men and women after being diagnosed with Melanoma
+```

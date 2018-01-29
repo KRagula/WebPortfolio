@@ -1,0 +1,67 @@
+---
+title: "MATH 3070 Lab Project 5"
+author: "Kanishka Ragula"
+date: "September 15, 2016"
+output:
+  html_document:
+    toc: TRUE
+---
+
+*Remember: I expect to see commentary either in the text, in the code with comments created using `#`, or (preferably) both! **Failing to do so may result in lost points!***
+
+
+## Problem 1 (Verzani problem 4.7)
+*Use the `subset()` function to return a data frame made from the `Cars93` (**MASS**) data frame consisting only of `non-USA` cars in origin, with 4 cylinders and a maximum price of \$15,000 or less.*
+
+```{r, tidy=TRUE,error=TRUE}
+library(UsingR)
+
+subset(Cars93, select = c(Manufacturer, Model,Origin, Cylinders, Max.Price),#Col. Names
+       subset = Cylinders==4 & #This tests for cylinders
+         Origin != 'USA' & #This tests for the opposite of USA (so non-USA)
+         Max.Price <= 15 #Less than max price
+       )
+
+```
+
+## Problem 2 (Verzani problem 4.10)
+*Find the standard deviation of each variable in the `mtcars` data set.*
+
+```{r, tidy=TRUE, error=TRUE}
+#Finds the standard deviation of each variable using sapply and sd methods
+sapply(mtcars, sd)
+
+```
+
+## Problem 3 (Verzani problem 4.11)
+*Find the standard deviation for each numeric variable in `Cars93` (**MASS**).*
+
+```{r, tidy=TRUE, error=TRUE}
+#Create smaller dataset by taking a subset of the cars using sapply and is.numeric
+numericCars = Cars93[sapply(Cars93, is.numeric)]
+
+#Run sapply again, this time with standard deviation
+sapply(numericCars, sd)
+
+```
+
+## Problem 4
+*You can find data describing various statistics on 2012 Olympic participating nations such as population and medal counts in the comma-separated value file located here: `http://introcs.cs.princeton.edu/java/data/olympic-medals2012.csv` Load this dataset into R in a data frame and do the following:*
+
+1. *Create a new data frame containing only the country's ISO code (a three-letter code for the country; USA is the United States of America, and DZA Algeria), name, population, and counts for gold, silver, and bronze. This data frame should be called `olympic2012`.*
+
+```{r, tidy=TRUE, error=TRUE}
+medals = read.csv("http://introcs.cs.princeton.edu/java/data/olympic-medals2012.csv", stringsAsFactors = FALSE) #Read data from the website
+olympic2012 = subset(medals, select = c("ISO","Country.name","pop.2010","Gold","Silver","Bronze")) # Create the subset of the data
+
+```
+
+2. *What proportion of countries earned no medals? Answer this using `olympic2012`.*
+
+```{r, tidy=TRUE, error=TRUE}
+noMedals = nrow(subset(olympic2012, subset = (Gold+Silver+Bronze) == 0)) #Calculate length of subset
+
+noMedals/nrow(olympic2012) #Print decimal percent value of countries that didn't receive medals
+
+```
+

@@ -1,0 +1,124 @@
+---
+title: "MATH 3070 Lab Project 4"
+author: "Kanishka Ragula"
+date: "September 8, 2016"
+output:
+  html_document:
+    toc: TRUE
+---
+
+*Remember: I expect to see commentary either in the text, in the code with comments created using `#`, or (preferably) both! **Failing to do so may result in lost points!***
+
+## Problem 1 (Verzani problem 2.43)
+*The `time` variable in the `nym.2002` data set (**UsingR**) contains the time to finish the 2002 New York City Marathon for a random sample of the finishers.*
+
+1. *What percent ran the race in under 3 hours?*
+
+```{r}
+#Import library because we are obligated to
+library(UsingR)
+
+
+#Which creates a vector containing the desired values.
+#Length tells us the amount in the vector
+#Format the percent
+paste(((length(which(nym.2002[5]<180))/nrow(nym.2002))*100), "%", sep="")
+
+```
+
+2. *Given that the slower runners will have higher running times; cut off the highest 10%.The highest 25%*
+
+```{r}
+#notTen stores the values of the marathon times not within the highest 10%
+#Overkill, yeah...
+notTen = nym.2002[which(nym.2002[5] < quantile(unlist(nym.2002[5]), .9)), 5]
+
+#Desired answer apparently
+quantile(unlist(nym.2002[5]), .9)
+
+#not25 stores the values of the marathon times not within the highest 25%
+#Overkill again...
+notTen = nym.2002[which(nym.2002[5] < quantile(unlist(nym.2002[5]), .75)), 5]
+
+#Why can't I just leave that?  Desired answer again
+quantile(nym.2002$time, .75)
+```
+
+3. *Given that the faster runners will have lower running times, cut off the lowest 10%.*
+
+```{r}
+#notFast stores the times slower than the top 10% of runners (lowest time)
+#Is Overkill needed anymore?
+notFast = nym.2002[which(nym.2002[5] > quantile(unlist(nym.2002[5]), .9)), 5]
+
+#Desired answer:
+quantile(nym.2002$time, .1)
+```
+
+## Problem 2 (Verzani problem 4.1)
+*The data set `UScereal` (**MASS**) contains data on cereals sold in the United States in 1993. For this data set, answer the following questions using R (i.e. MUST answer questions using a code. Do not count by hand):*
+
+1. *How many rows does the data frame have? Columns?*
+
+```{r}
+#Number of rows
+nrow(UScereal)
+
+#Number of columns
+ncol(UScereal)
+```
+
+2. *How many different manufacturers are included?*
+
+```{r}
+# Counts the number of levels in the manufacturers column
+nlevels(UScereal$mfr)
+```
+
+3. *How many vitamin categories are included?*
+
+```{r}
+nlevels(UScereal$vitamins)
+
+```
+
+4. *How many cereals have a sugar level above 10?*
+
+```{r}
+#Count length of which vector for sugars above 10
+length(which(UScereal$sugars>10))
+```
+
+5. *What is the mean calorie value for cereals with more than 5 grams of fat? Less than or equal to 5?*
+
+```{r}
+# Mean for more than 5
+mean(UScereal[which(UScereal$fat>5), "calories"])
+
+# Mean for less than 5
+mean(UScereal[which(UScereal$fat<=5), "calories"])
+```
+
+6. *What is the mean calorie value for cereals on the middle shelf (2)?*
+
+```{r}
+# Returns mean calories for middle shelf cereals
+mean(UScereal[which(UScereal$shelf == 2), "calories"])
+```
+
+## Problem 3
+*Create a data frame containing the data in the following table:*
+
+| First    | Last      | Age |
+|----------|-----------|-----|
+| Marcus   | Holstein  | 23  |
+| Samuel   | Adams     | 56  |
+| Gus      | McPherson | 43  |
+| Margaret | Olsen     | 41  |
+| Zim      | Newbold   | 95  |
+
+```{r}
+# Stores the First names, Last names, and Ages of people, each as its own vector stored in the data frame
+df1 = data.frame(First = c("Marcus","Samuel","Gus","Margaret","Zim"), Last = c("Holstein","Adams","McPherson","Olsen","Newbold"), Age = c(23, 56, 43, 41, 95))
+df1
+```
